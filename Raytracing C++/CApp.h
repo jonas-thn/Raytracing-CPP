@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include "Raytracer/Image.h"
 
 class CApp
 {
@@ -15,6 +16,8 @@ public:
 	void OnExit();
 
 private:
+	Image m_image;
+
 	bool isRunning;
 	SDL_Window* pWindow;
 	SDL_Renderer* pRenderer;
