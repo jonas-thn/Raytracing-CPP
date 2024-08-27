@@ -15,7 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Raytracing C++.cpp">
+    <ClInclude Include="CApp.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CApp.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
