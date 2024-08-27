@@ -20,12 +20,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="qbLinAlg\qbEIG.h" />
+    <ClInclude Include="qbLinAlg\qbLinSolve.h" />
+    <ClInclude Include="qbLinAlg\qbLSQ.h" />
+    <ClInclude Include="qbLinAlg\qbMatrix.h" />
+    <ClInclude Include="qbLinAlg\qbMatrix33.hpp" />
+    <ClInclude Include="qbLinAlg\qbMatrix44.hpp" />
+    <ClInclude Include="qbLinAlg\qbPCA.h" />
+    <ClInclude Include="qbLinAlg\qbQR.h" />
+    <ClInclude Include="qbLinAlg\qbVector.h" />
+    <ClInclude Include="qbLinAlg\qbVector2.hpp" />
+    <ClInclude Include="qbLinAlg\qbVector3.hpp" />
+    <ClInclude Include="qbLinAlg\qbVector4.hpp" />
     <ClInclude Include="RayTracer\Image.h" />
+    <ClInclude Include="RayTracer\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="RayTracer\Image.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RayTracer\Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qbLinAlg\.gitignore" />
+    <None Include="qbLinAlg\LICENSE" />
+    <None Include="qbLinAlg\README.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

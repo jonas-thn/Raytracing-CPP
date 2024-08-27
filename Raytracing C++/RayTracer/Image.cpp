@@ -65,6 +65,16 @@ void Image::Display()
 	SDL_RenderCopy(m_pRenderer, m_pTexture, &srcRect, &bounds);
 }
 
+int Image::GetXSize()
+{
+	return m_xSize;
+}
+
+int Image::GetYSize()
+{
+	return m_ySize;
+}
+
 void Image::InitTexture()
 {
 	Uint32 rmask, gmask, bmask, amask;
