@@ -14,7 +14,7 @@ bool RT::ObjectSphere::TestIntersection(const Ray& castRay, qbVector<double>& in
 {
 	/* Sphere Intersection Test Formula:
 	
-		at^2 + bt + c = 0 (quadratic formular)
+		at^2 + bt + c = 0 (quadratic formular -> front face and backface solution)
 
 		a = v * v
 		b = 2(p1 * v)
@@ -36,6 +36,26 @@ bool RT::ObjectSphere::TestIntersection(const Ray& castRay, qbVector<double>& in
 
 	if (intTest > 0.0)
 	{
+		double numSQRT = sqrtf(intTest);
+		double t1 = (-b + numSQRT) / 2.0;
+		double t2 = (-b - numSQRT) / 2.0;
+
+		if ((t1 < 0) || (t2 < 0))
+		{
+			return false;
+		}
+		else
+		{
+			if (t1 < t2)
+			{
+				intPoint = castRay.m_point1 + (vhat * t1);
+			}
+			else
+			{
+				intPoint = castRay.m_point1 + (vhat * t2);
+			}
+		}
+
 		return true;
 	}
 	else

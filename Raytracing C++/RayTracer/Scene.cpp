@@ -44,7 +44,18 @@ bool RT::Scene::Render(Image& outputImage)
 			//change color to red if valid intersecion
 			if (validInt)
 			{
-				outputImage.SetPixel(x, y, 255.0, 0.0, 0.0);
+				//compute distance to camera and the point of intersecition
+				double dist = (intPoint - cameraRay.m_point1).norm();
+				if (dist > maxDist)
+				{
+					maxDist = dist;
+				}
+				if (dist < minDist)
+				{
+					minDist = dist;
+				}
+
+				outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
 			}
 			else
 			{
@@ -52,6 +63,9 @@ bool RT::Scene::Render(Image& outputImage)
 			}
 		}
 	}
+
+	std::cout << "Minimum distance: " << minDist << std::endl;
+	std::cout << "Maximum distance: " << maxDist << std::endl;
 
 	return true;
 }
