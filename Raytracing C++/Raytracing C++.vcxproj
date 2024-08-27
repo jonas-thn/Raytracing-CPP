@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RayTracer\Camera.h" />
     <ClInclude Include="CApp.h" />
     <ClInclude Include="qbLinAlg\qbEIG.h" />
     <ClInclude Include="qbLinAlg\qbLinSolve.h" />
@@ -32,11 +33,14 @@
     <ClInclude Include="qbLinAlg\qbVector2.hpp" />
     <ClInclude Include="qbLinAlg\qbVector3.hpp" />
     <ClInclude Include="qbLinAlg\qbVector4.hpp" />
+    <ClInclude Include="RayTracer\Ray.h" />
     <ClInclude Include="RayTracer\Image.h" />
     <ClInclude Include="RayTracer\Scene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RayTracer\Camera.cpp" />
     <ClCompile Include="CApp.cpp" />
+    <ClCompile Include="RayTracer\Ray.cpp" />
     <ClCompile Include="RayTracer\Image.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RayTracer\Scene.cpp" />

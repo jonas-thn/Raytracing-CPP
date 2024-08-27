@@ -60,6 +60,12 @@
     <ClInclude Include="qbLinAlg\qbVector4.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="RayTracer\Ray.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracer\Camera.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp">
@@ -72,6 +78,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RayTracer\Scene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\Ray.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\Camera.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
