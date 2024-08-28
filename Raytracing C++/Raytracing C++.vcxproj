@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RayTracer\GTFM.h" />
     <ClInclude Include="RayTracer\PointLight.h" />
     <ClInclude Include="RayTracer\LightBase.h" />
     <ClInclude Include="RayTracer\ObjectSphere.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="RayTracer\Scene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RayTracer\GTFM.cpp" />
     <ClCompile Include="RayTracer\PointLight.cpp" />
     <ClCompile Include="RayTracer\LightBase.cpp" />
     <ClCompile Include="RayTracer\ObjectSphere.cpp" />

@@ -11,6 +11,23 @@ RT::Scene::Scene()
 
 	//construct a test sphere
 	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
+	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
+	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
+
+	//modify spheres
+	RT::GTFM testMatrix1, testMatrix2, testMatrix3;
+	testMatrix1.SetTransform(qbVector<double>{std::vector<double>{-1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.75}});
+	testMatrix2.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.75, 0.5, 0.5}});
+	testMatrix3.SetTransform(qbVector<double>{std::vector<double>{1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}});
+
+	m_objectList.at(0)->SetTransformMatrix(testMatrix1);
+	m_objectList.at(1)->SetTransformMatrix(testMatrix2);
+	m_objectList.at(2)->SetTransformMatrix(testMatrix3);
+
+	m_objectList.at(0)->m_baseColor = qbVector<double>{ std::vector<double>{64.0, 128.0, 200.0} };
+	m_objectList.at(1)->m_baseColor = qbVector<double>{ std::vector<double>{255.0, 128.0, 0.0} };
+	m_objectList.at(2)->m_baseColor = qbVector<double>{ std::vector<double>{255.0, 200.0, 0.0} };
+
 
 	//construct a test light
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
@@ -77,16 +94,17 @@ bool RT::Scene::Render(Image& outputImage)
 					//outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
 					if (validIllum)
 					{
-						outputImage.SetPixel(x, y, 255.0 * intensity, 0.0, 0.0);
+						//outputImage.SetPixel(x, y, 255.0 * intensity, 0.0, 0.0);
+						outputImage.SetPixel(x, y, localColor.GetElement(0) * intensity, localColor.GetElement(1) * intensity, localColor.GetElement(2) * intensity);
 					}
 					else
 					{
-						outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
+						//outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 					}
 				}
 				else
 				{
-					outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
+					//outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 				}
 			}			
 		}

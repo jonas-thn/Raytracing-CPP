@@ -23,16 +23,21 @@ bool RT::ObjectSphere::TestIntersection(const Ray& castRay, qbVector<double>& in
 		b^2 - 4ac > 0 
 	*/
 
-	qbVector<double> vhat = castRay.m_lab;
+	//from world to local
+	RT::Ray bckRay = m_transformMatrix.Apply(castRay, RT::BCKTFORM);
+
+	qbVector<double> vhat = bckRay.m_lab;
 	vhat.Normalize();
 
 	// a == squared magnitude of direction of cast ray (value of a always 1 -> unit vector)
 
-	double b = 2.0 * qbVector<double>::dot(castRay.m_point1, vhat);
+	double b = 2.0 * qbVector<double>::dot(bckRay.m_point1, vhat);
 
-	double c = qbVector<double>::dot(castRay.m_point1, castRay.m_point1) - 1.0;
+	double c = qbVector<double>::dot(bckRay.m_point1, bckRay.m_point1) - 1.0;
 
 	double intTest = (b * b) - 4.0 * c;
+
+	qbVector<double> poi;
 
 	if (intTest > 0.0)
 	{
@@ -48,16 +53,24 @@ bool RT::ObjectSphere::TestIntersection(const Ray& castRay, qbVector<double>& in
 		{
 			if (t1 < t2)
 			{
-				intPoint = castRay.m_point1 + (vhat * t1);
+				poi = bckRay.m_point1 + (vhat * t1);
 			}
 			else
 			{
-				intPoint = castRay.m_point1 + (vhat * t2);
+				poi = bckRay.m_point1 + (vhat * t2);
 			}
 
+			//transform intersection backto world coords
+			intPoint = m_transformMatrix.Apply(poi, RT::FWDTFORM);
+
 			//compute local normal
-			localNormal = intPoint; //from origin to intersecion
+			qbVector<double> objOrigin = qbVector<double>{ std::vector<double>{0.0, 0.0, 0.0} };
+			qbVector<double> newObjOrigin = m_transformMatrix.Apply(objOrigin, RT::FWDTFORM);
+			localNormal = intPoint - newObjOrigin; //from origin to intersecion
 			localNormal.Normalize();
+
+			//return base color
+			localColor = m_baseColor;
 		}
 
 		return true;
