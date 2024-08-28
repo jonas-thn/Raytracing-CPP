@@ -133,6 +133,9 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +153,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +172,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -184,6 +192,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
