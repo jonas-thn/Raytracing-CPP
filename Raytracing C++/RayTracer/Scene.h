@@ -5,6 +5,8 @@
 #include "Image.h"
 #include "Camera.h"
 #include "ObjectSphere.h"
+#include <memory>
+#include "PointLight.h"
 
 namespace RT
 {
@@ -20,7 +22,11 @@ namespace RT
 	private:
 		RT::Camera m_camera;
 
-		RT::ObjectSphere m_testSphere;
+		//list of objects
+		std::vector<std::shared_ptr<RT::ObjectBase>> m_objectList;
+
+		//list of lights
+		std::vector<std::shared_ptr<RT::LightBase>> m_lightList;
 	};
 }
 

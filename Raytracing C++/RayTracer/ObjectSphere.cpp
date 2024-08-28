@@ -54,6 +54,10 @@ bool RT::ObjectSphere::TestIntersection(const Ray& castRay, qbVector<double>& in
 			{
 				intPoint = castRay.m_point1 + (vhat * t2);
 			}
+
+			//compute local normal
+			localNormal = intPoint; //from origin to intersecion
+			localNormal.Normalize();
 		}
 
 		return true;

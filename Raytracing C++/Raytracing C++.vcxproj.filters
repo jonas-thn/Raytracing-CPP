@@ -72,6 +72,12 @@
     <ClInclude Include="RayTracer\ObjectSphere.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="RayTracer\LightBase.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracer\PointLight.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp">
@@ -96,6 +102,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RayTracer\ObjectSphere.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\LightBase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\PointLight.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
