@@ -87,6 +87,9 @@
     <ClInclude Include="RayTracer\Materials\MaterialBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="RayTracer\Materials\SimpleMaterial.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp">
@@ -126,6 +129,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RayTracer\Materials\MaterialBase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\Materials\SimpleMaterial.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

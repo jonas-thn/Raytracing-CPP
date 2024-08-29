@@ -1,8 +1,31 @@
 #include "Scene.h"
 #include "./Materials/MaterialBase.h"
+#include "./Materials/SimpleMaterial.h"
 
 RT::Scene::Scene()
 {
+	//create some materials
+	auto testMaterial = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	testMaterial->m_baseColor = qbVector<double>{ std::vector<double>{0.25, 0.5, 0.8} };
+	testMaterial->m_reflectivity = 0.1;
+	testMaterial->m_shininess = 10.0;
+
+	auto testMaterial2 = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	testMaterial2->m_baseColor = qbVector<double>{ std::vector<double>{1.0, 0.5, 0.0} };
+	testMaterial2->m_reflectivity = 0.75;
+	testMaterial2->m_shininess = 10.0;
+
+	auto testMaterial3 = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	testMaterial3->m_baseColor = qbVector<double>{ std::vector<double>{1.0, 0.8, 0.0} };
+	testMaterial3->m_reflectivity = 0.25;
+	testMaterial3->m_shininess = 10.0;
+
+	auto floorMaterial = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	floorMaterial->m_baseColor = qbVector<double>{ std::vector<double>{1, 1, 1} };
+	floorMaterial->m_reflectivity = 0.5;
+	floorMaterial->m_shininess = 0.0;
+
+	//camera
 	m_camera.SetPosition(qbVector<double>(std::vector<double>{0.0, -10.0, -1.0}));
 	m_camera.SetLookAt(qbVector<double>(std::vector<double>{0.0, 0.0, 0.0}));
 	m_camera.SetUp(qbVector<double>(std::vector<double>{0.0, 0.0, 1.0}));
@@ -21,14 +44,14 @@ RT::Scene::Scene()
 
 	//transform for plane
 	RT::GTFM planeMatrix;
-	planeMatrix.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.75}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{4.0, 4.0, 1.0}});
+	planeMatrix.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.5}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{4.0, 4.0, 1.0}});
 	m_objectList.at(3)->SetTransformMatrix(planeMatrix);
 
 	//modify spheres
 	RT::GTFM testMatrix1, testMatrix2, testMatrix3;
-	testMatrix1.SetTransform(qbVector<double>{std::vector<double>{-1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.75}});
-	testMatrix2.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.75, 0.5, 0.5}});
-	testMatrix3.SetTransform(qbVector<double>{std::vector<double>{1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}});
+	testMatrix1.SetTransform(qbVector<double>{std::vector<double>{-1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
+	testMatrix2.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
+	testMatrix3.SetTransform(qbVector<double>{std::vector<double>{1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
 
 	m_objectList.at(0)->SetTransformMatrix(testMatrix1);
 	m_objectList.at(1)->SetTransformMatrix(testMatrix2);
@@ -38,6 +61,11 @@ RT::Scene::Scene()
 	m_objectList.at(1)->m_baseColor = qbVector<double>{ std::vector<double>{1, 0.5, 0.0} };
 	m_objectList.at(2)->m_baseColor = qbVector<double>{ std::vector<double>{1, 0.8, 0.0} };
 
+	//assign materials to objects
+	m_objectList.at(0)->AssignMaterial(testMaterial3);
+	m_objectList.at(1)->AssignMaterial(testMaterial);
+	m_objectList.at(2)->AssignMaterial(testMaterial2);
+	m_objectList.at(3)->AssignMaterial(floorMaterial);
 
 	//construct a test light
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
@@ -72,7 +100,7 @@ bool RT::Scene::Render(Image& outputImage)
 
 	for (int x = 0; x < xSize; ++x)
 	{
-		std::cout << "Iteration: " << x << " / " << xSize << std::endl;
+		std::cout << "Processing line: " << x << " / " << xSize << std::endl;
 
 		for (int y = 0; y < ySize; ++y)
 		{
@@ -96,6 +124,7 @@ bool RT::Scene::Render(Image& outputImage)
 				//check obj material
 				if (closestObject->m_hasMaterial)
 				{
+					RT::MaterialBase::m_reflectionRayCount = 0;
 					qbVector<double> color = closestObject->m_pMaterial->ComputeColor(m_objectList, m_lightList, closestObject, closestIntPoint, closestLocalNormal, cameraRay);
 
 					outputImage.SetPixel(x, y, color.GetElement(0), color.GetElement(1), color.GetElement(2));
