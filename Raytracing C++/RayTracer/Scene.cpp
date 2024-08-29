@@ -41,7 +41,15 @@ RT::Scene::Scene()
 	//construct a test light
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(0)->m_location = qbVector<double>{ std::vector<double>{5.0, -10.0, -5.0} };
-	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{1, 1, 1} };
+	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{0, 0, 1} };
+
+	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
+	m_lightList.at(1)->m_location = qbVector<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
+	m_lightList.at(1)->m_color = qbVector<double>{ std::vector<double>{1, 0, 0} };
+
+	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
+	m_lightList.at(2)->m_location = qbVector<double>{ std::vector<double>{0.0, -10.0, -5.0} };
+	m_lightList.at(2)->m_color = qbVector<double>{ std::vector<double>{0, 1, 0} };
 }
 
 bool RT::Scene::Render(Image& outputImage)
