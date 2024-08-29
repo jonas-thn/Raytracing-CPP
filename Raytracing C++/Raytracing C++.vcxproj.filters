@@ -81,6 +81,9 @@
     <ClInclude Include="RayTracer\GTFM.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="RayTracer\ObjectPlane.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApp.cpp">
@@ -114,6 +117,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RayTracer\GTFM.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\ObjectPlane.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

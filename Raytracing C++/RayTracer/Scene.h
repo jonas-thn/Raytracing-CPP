@@ -2,11 +2,12 @@
 
 #include <vector>
 #include <SDL.h>
+#include <memory>
 #include "Image.h"
 #include "Camera.h"
 #include "ObjectSphere.h"
-#include <memory>
 #include "PointLight.h"
+#include "ObjectPlane.h"
 
 namespace RT
 {
