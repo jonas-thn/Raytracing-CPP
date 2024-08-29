@@ -1,20 +1,23 @@
 #pragma once
 
 #include "ObjectBase.h"
-#include "GTFM.h"
+#include "../GTFM.h"
+
+#include "../../qbLinAlg/qbVector.h"
 
 namespace RT
 {
-	class ObjectPlane : public ObjectBase
+	class ObjectSphere : public ObjectBase
 	{
 	public:
-		ObjectPlane();
+		//default shpere at origin
 
-		virtual ~ObjectPlane() override;
+		ObjectSphere();
+
+		virtual ~ObjectSphere() override;
 
 		virtual bool TestIntersection(const Ray& castRay, qbVector<double>& intPoint, qbVector<double>& localNormal, qbVector<double>& localColor) override;
 
-	private:
 	};
 }
 

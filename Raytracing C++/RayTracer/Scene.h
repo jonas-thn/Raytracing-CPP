@@ -5,9 +5,9 @@
 #include <memory>
 #include "Image.h"
 #include "Camera.h"
-#include "ObjectSphere.h"
-#include "PointLight.h"
-#include "ObjectPlane.h"
+#include "./Primatives/ObjectSphere.h"
+#include "./Lights/PointLight.h"
+#include "./Primatives/ObjectPlane.h"
 
 namespace RT
 {
@@ -17,6 +17,8 @@ namespace RT
 		Scene();
 
 		bool Render(Image& outputImage);
+
+		bool CastRay(RT::Ray& castRay, std::shared_ptr<RT::ObjectBase>& closestObject, qbVector<double>& closestIntPoint, qbVector<double>& closestLocalNormal, qbVector<double>& closestLocalColor);
 
 	private:
 

@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "./Materials/MaterialBase.h"
 
 RT::Scene::Scene()
 {
@@ -86,67 +87,64 @@ bool RT::Scene::Render(Image& outputImage)
 			qbVector<double> closestIntPoint{ 3 };
 			qbVector<double> closestLocalNormal{ 3 };
 			qbVector<double> closestLocalColor{ 3 };
-			double minDist = 1e6;
-			bool intersectionFound = false;
 
-			//test for intersections with all objects in scene
-			for (auto currentObject : m_objectList)
-			{
-				bool validInt = currentObject->TestIntersection(cameraRay, intPoint, localNormal, localColor);
-
-				//check valid intersection
-				if (validInt)
-				{
-					intersectionFound = true;
-
-					//distance between camera and intersection
-					double dist = (intPoint - cameraRay.m_point1).norm();
-
-					//if closer than store reference
-					if (dist < minDist)
-					{
-						minDist = dist;
-						closestObject = currentObject;
-						closestIntPoint = intPoint;
-						closestLocalNormal = localNormal;
-						closestLocalColor = localColor;
-					}
-				}
-			}
+			bool intersectionFound = CastRay(cameraRay, closestObject, closestIntPoint, closestLocalNormal, closestLocalColor);
 
 			//compute illumination for closest object
 			if (intersectionFound)
 			{
-				double intensity;
-				qbVector<double> color{ 3 };
-				double red = 0.0;
-				double green = 0.0;
-				double blue = 0.0;
-				bool validIllum = false;
-				bool illumFound = false;
-
-				for (auto currentLight : m_lightList)
+				//check obj material
+				if (closestObject->m_hasMaterial)
 				{
-					validIllum = currentLight->ComputeIllumination(closestIntPoint, closestLocalNormal, m_objectList, closestObject, color, intensity);
+					qbVector<double> color = closestObject->m_pMaterial->ComputeColor(m_objectList, m_lightList, closestObject, closestIntPoint, closestLocalNormal, cameraRay);
 
-					if (validIllum)
-					{
-						illumFound = true;
-						red += color.GetElement(0) * intensity;
-						green += color.GetElement(1) * intensity;
-						blue += color.GetElement(2) * intensity;
-					}
+					outputImage.SetPixel(x, y, color.GetElement(0), color.GetElement(1), color.GetElement(2));
 				}
-
-				if (illumFound)
+				else
 				{
-					red *= closestLocalColor.GetElement(0);
-					green *= closestLocalColor.GetElement(1);
-					blue *= closestLocalColor.GetElement(2);
-					outputImage.SetPixel(x, y, red, green, blue);
+
+					qbVector<double> matColor = RT::MaterialBase::ComputeDiffuseColor(m_objectList, m_lightList, closestObject, closestIntPoint, closestLocalNormal, closestObject->m_baseColor);
+
+					outputImage.SetPixel(x, y, matColor.GetElement(0), matColor.GetElement(1), matColor.GetElement(2));
 				}
 			}
 		}
 	}
 	return true;
+}
+
+bool RT::Scene::CastRay(RT::Ray& castRay, std::shared_ptr<RT::ObjectBase>& closestObject, qbVector<double>& closestIntPoint, qbVector<double>& closestLocalNormal, qbVector<double>& closestLocalColor)
+{
+	qbVector<double> intPoint{ 3 };
+	qbVector<double> localNormal{ 3 };
+	qbVector<double> localColor{ 3 };
+	double minDist = 1e6;
+	bool intersectionFound = false;
+
+	//test for intersections with all objects in scene
+	for (auto currentObject : m_objectList)
+	{
+		bool validInt = currentObject->TestIntersection(castRay, intPoint, localNormal, localColor);
+
+		//check valid intersection
+		if (validInt)
+		{
+			intersectionFound = true;
+
+			//distance between camera and intersection
+			double dist = (intPoint - castRay.m_point1).norm();
+
+			//if closer than store reference
+			if (dist < minDist)
+			{
+				minDist = dist;
+				closestObject = currentObject;
+				closestIntPoint = intPoint;
+				closestLocalNormal = localNormal;
+				closestLocalColor = localColor;
+			}
+		}
+	}
+
+	return intersectionFound;
 }

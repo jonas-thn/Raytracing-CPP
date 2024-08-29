@@ -19,12 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RayTracer\ObjectPlane.h" />
+    <ClInclude Include="RayTracer\Materials\MaterialBase.h" />
+    <ClInclude Include="RayTracer\Primatives\ObjectPlane.h" />
     <ClInclude Include="RayTracer\GTFM.h" />
-    <ClInclude Include="RayTracer\PointLight.h" />
-    <ClInclude Include="RayTracer\LightBase.h" />
-    <ClInclude Include="RayTracer\ObjectSphere.h" />
-    <ClInclude Include="RayTracer\ObjectBase.h" />
+    <ClInclude Include="RayTracer\Lights\PointLight.h" />
+    <ClInclude Include="RayTracer\Lights\LightBase.h" />
+    <ClInclude Include="RayTracer\Primatives\ObjectSphere.h" />
+    <ClInclude Include="RayTracer\Primatives\ObjectBase.h" />
     <ClInclude Include="RayTracer\Camera.h" />
     <ClInclude Include="CApp.h" />
     <ClInclude Include="qbLinAlg\qbEIG.h" />
@@ -44,12 +45,13 @@
     <ClInclude Include="RayTracer\Scene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RayTracer\ObjectPlane.cpp" />
+    <ClCompile Include="RayTracer\Materials\MaterialBase.cpp" />
+    <ClCompile Include="RayTracer\Primatives\ObjectPlane.cpp" />
     <ClCompile Include="RayTracer\GTFM.cpp" />
-    <ClCompile Include="RayTracer\PointLight.cpp" />
-    <ClCompile Include="RayTracer\LightBase.cpp" />
-    <ClCompile Include="RayTracer\ObjectSphere.cpp" />
-    <ClCompile Include="RayTracer\ObjectBase.cpp" />
+    <ClCompile Include="RayTracer\Lights\PointLight.cpp" />
+    <ClCompile Include="RayTracer\Lights\LightBase.cpp" />
+    <ClCompile Include="RayTracer\Primatives\ObjectSphere.cpp" />
+    <ClCompile Include="RayTracer\Primatives\ObjectBase.cpp" />
     <ClCompile Include="RayTracer\Camera.cpp" />
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="RayTracer\Ray.cpp" />
@@ -143,6 +145,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,6 +167,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -187,6 +191,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -208,6 +213,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -26,3 +26,10 @@ bool RT::ObjectBase::CloseEnough(const double f1, const double f2)
 {
 	return fabs(f1 - f2) < EPSILON;
 }
+
+bool RT::ObjectBase::AssignMaterial(const std::shared_ptr<RT::MaterialBase>& objectMaterial)
+{
+	m_pMaterial = objectMaterial;
+	m_hasMaterial = true;
+	return m_hasMaterial;
+}

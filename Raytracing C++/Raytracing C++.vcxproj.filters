@@ -66,22 +66,25 @@
     <ClInclude Include="RayTracer\Camera.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RayTracer\ObjectBase.h">
+    <ClInclude Include="RayTracer\Primatives\ObjectBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RayTracer\ObjectSphere.h">
+    <ClInclude Include="RayTracer\Primatives\ObjectSphere.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RayTracer\LightBase.h">
+    <ClInclude Include="RayTracer\Lights\LightBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RayTracer\PointLight.h">
+    <ClInclude Include="RayTracer\Lights\PointLight.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="RayTracer\GTFM.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RayTracer\ObjectPlane.h">
+    <ClInclude Include="RayTracer\Primatives\ObjectPlane.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracer\Materials\MaterialBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,22 +107,25 @@
     <ClCompile Include="RayTracer\Camera.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RayTracer\ObjectBase.cpp">
+    <ClCompile Include="RayTracer\Primatives\ObjectBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RayTracer\ObjectSphere.cpp">
+    <ClCompile Include="RayTracer\Primatives\ObjectSphere.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RayTracer\LightBase.cpp">
+    <ClCompile Include="RayTracer\Lights\LightBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RayTracer\PointLight.cpp">
+    <ClCompile Include="RayTracer\Lights\PointLight.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RayTracer\GTFM.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RayTracer\ObjectPlane.cpp">
+    <ClCompile Include="RayTracer\Primatives\ObjectPlane.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracer\Materials\MaterialBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

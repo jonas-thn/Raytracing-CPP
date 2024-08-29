@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include "../qbLinAlg/qbVector.h"
-#include "Ray.h"
-#include "ObjectBase.h"
+#include "../../qbLinAlg/qbVector.h"
+#include "../Ray.h"
+#include "../Primatives/ObjectBase.h"
 
 namespace RT
 {
