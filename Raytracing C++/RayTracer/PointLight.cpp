@@ -16,20 +16,57 @@ bool RT::PointLight::ComputeIllumination(const qbVector<double>& intPoint, const
 
 	qbVector<double> startPoint = intPoint;
 
-	//angle between localNormal and lightRay (localNormal is unitVector)
-	double angle = acos(qbVector<double>::dot(localNormal, lightDir));
+	//construct ray from point of intersection to the light
+	RT::Ray lightRay(startPoint, startPoint + lightDir);
 
-	//if the angle pointing away, no illumination
-	if (angle > 1.5708) //half pi
+	//check intersections
+	qbVector<double> poi{ 3 };
+	qbVector<double> poiNormal{ 3 };
+	qbVector<double> poiColor{ 3 };
+
+	bool validInt = false;
+
+	for (auto sceneObject : objectList)
 	{
-		color = m_color;
-		intensity = 0.0;
-		return false;
+		if (sceneObject != currentObject)
+		{
+			validInt = sceneObject->TestIntersection(lightRay, poi, poiNormal, poiColor);
+		}
+
+		//if intersection, then there is no point checking further
+		if (validInt)
+		{
+			break;
+		}
+	}
+
+	//only continue if ligth ray didnt intersect with any objects
+	if (!validInt)
+	{
+		//compute angle between localNormal and lightRay (localNormal is unit vector)
+
+		double angle = acos(qbVector<double>::dot(localNormal, lightDir));
+
+		//if pointing away, then no illumination
+		if (angle > 1.5708)
+		{
+			color = m_color;
+			intensity = 0.0;
+			return false;
+		}
+		else
+		{
+			color = m_color;
+			intensity = m_intensity * (1.0 - (angle / 1.5708));
+			return true;
+
+		}
 	}
 	else
 	{
+		//shadow, so no illumination
 		color = m_color;
-		intensity = m_intensity * (1.0 - (angle / 1.5708));
-		return true;
+		intensity = 0.0;
+		return false;
 	}
 }
