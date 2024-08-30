@@ -16,6 +16,8 @@ namespace RT
 		GTFM();
 		~GTFM();
 
+		GTFM(const qbVector<double>& translation, const qbVector<double>& rotation, const qbVector<double>& scale);
+
 		GTFM(const qbMatrix2<double>& fwd, const qbMatrix2<double>& bck);
 
 		void SetTransform(const qbVector<double>& translation, const qbVector<double>& rotation, const qbVector<double>& scale);

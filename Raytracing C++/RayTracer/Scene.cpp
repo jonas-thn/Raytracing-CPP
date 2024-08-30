@@ -4,26 +4,39 @@
 
 RT::Scene::Scene()
 {
-	//create some materials
-	auto testMaterial = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
-	testMaterial->m_baseColor = qbVector<double>{ std::vector<double>{0.25, 0.5, 0.8} };
-	testMaterial->m_reflectivity = 0.1;
-	testMaterial->m_shininess = 10.0;
-
-	auto testMaterial2 = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
-	testMaterial2->m_baseColor = qbVector<double>{ std::vector<double>{1.0, 0.5, 0.0} };
-	testMaterial2->m_reflectivity = 0.75;
-	testMaterial2->m_shininess = 10.0;
-
-	auto testMaterial3 = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
-	testMaterial3->m_baseColor = qbVector<double>{ std::vector<double>{1.0, 0.8, 0.0} };
-	testMaterial3->m_reflectivity = 0.25;
-	testMaterial3->m_shininess = 10.0;
-
 	auto floorMaterial = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
 	floorMaterial->m_baseColor = qbVector<double>{ std::vector<double>{1, 1, 1} };
-	floorMaterial->m_reflectivity = 0.5;
+	floorMaterial->m_reflectivity = 0.2;
 	floorMaterial->m_shininess = 0.0;
+
+	auto blueDiffuse = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	blueDiffuse->m_baseColor = qbVector<double>{ std::vector<double>{0.2, 0.2, 0.8} };
+	blueDiffuse->m_reflectivity = 0.05;
+	blueDiffuse->m_shininess = 5.0;
+
+	auto yellowDiffuse = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	yellowDiffuse->m_baseColor = qbVector<double>{ std::vector<double>{0.8, 0.8, 0.4} };
+	yellowDiffuse->m_reflectivity = 0.4;
+	yellowDiffuse->m_shininess = 5.0;
+
+	//create floor
+	auto floor = std::make_shared <RT::ObjectPlane>(RT::ObjectPlane());
+	//RT::GTFM planeMatrix;
+	floor->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{4.0, 4.0, 1.0}} });
+	floor->AssignMaterial(floorMaterial);
+
+	//create objects
+	auto cylinder1 = std::make_shared<RT::Cylinder>(RT::Cylinder());
+	cylinder1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{-1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 1.0}} });
+	cylinder1->AssignMaterial(blueDiffuse);
+
+	auto cone1 = std::make_shared<RT::Cone>(RT::Cone());
+	cone1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 1.0}} });
+	cone1->AssignMaterial(yellowDiffuse);
+
+	m_objectList.push_back(floor);
+	m_objectList.push_back(cylinder1);
+	m_objectList.push_back(cone1);
 
 	//camera
 	m_camera.SetPosition(qbVector<double>(std::vector<double>{0.0, -10.0, -1.0}));
@@ -33,52 +46,21 @@ RT::Scene::Scene()
 	m_camera.SetAspect(16.0 / 9.0);
 	m_camera.UpdateCameraGeometry();
 
-	//construct a test sphere
-	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
-	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
-	m_objectList.push_back(std::make_shared<RT::ObjectSphere>(RT::ObjectSphere()));
-
-	//construct test plane
-	m_objectList.push_back(std::make_shared <RT::ObjectPlane>(RT::ObjectPlane()));
-	m_objectList.at(3)->m_baseColor = qbVector<double>{ std::vector<double>{0.5, 0.5, 0.5} };
 
 	//transform for plane
-	RT::GTFM planeMatrix;
-	planeMatrix.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.5}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{4.0, 4.0, 1.0}});
-	m_objectList.at(3)->SetTransformMatrix(planeMatrix);
-
-	//modify spheres
-	RT::GTFM testMatrix1, testMatrix2, testMatrix3;
-	testMatrix1.SetTransform(qbVector<double>{std::vector<double>{-1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
-	testMatrix2.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
-	testMatrix3.SetTransform(qbVector<double>{std::vector<double>{1.5, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}});
-
-	m_objectList.at(0)->SetTransformMatrix(testMatrix1);
-	m_objectList.at(1)->SetTransformMatrix(testMatrix2);
-	m_objectList.at(2)->SetTransformMatrix(testMatrix3);
-
-	m_objectList.at(0)->m_baseColor = qbVector<double>{ std::vector<double>{0.25, 0.5, 0.8} };
-	m_objectList.at(1)->m_baseColor = qbVector<double>{ std::vector<double>{1, 0.5, 0.0} };
-	m_objectList.at(2)->m_baseColor = qbVector<double>{ std::vector<double>{1, 0.8, 0.0} };
-
-	//assign materials to objects
-	m_objectList.at(0)->AssignMaterial(testMaterial3);
-	m_objectList.at(1)->AssignMaterial(testMaterial);
-	m_objectList.at(2)->AssignMaterial(testMaterial2);
-	m_objectList.at(3)->AssignMaterial(floorMaterial);
 
 	//construct a test light
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(0)->m_location = qbVector<double>{ std::vector<double>{5.0, -10.0, -5.0} };
-	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{0, 0, 1} };
+	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{0.7, 0.7, 1} };
 
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(1)->m_location = qbVector<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
-	m_lightList.at(1)->m_color = qbVector<double>{ std::vector<double>{1, 0, 0} };
+	m_lightList.at(1)->m_color = qbVector<double>{ std::vector<double>{1, 0.3, 0.3} };
 
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(2)->m_location = qbVector<double>{ std::vector<double>{0.0, -10.0, -5.0} };
-	m_lightList.at(2)->m_color = qbVector<double>{ std::vector<double>{0, 1, 0} };
+	m_lightList.at(2)->m_color = qbVector<double>{ std::vector<double>{0.1, 1, 0.1} };
 }
 
 bool RT::Scene::Render(Image& outputImage)

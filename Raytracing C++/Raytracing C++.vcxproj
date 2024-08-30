@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RayTracer\Primatives\Cone.h" />
+    <ClInclude Include="RayTracer\Primatives\Cylinder.h" />
     <ClInclude Include="RayTracer\Materials\MaterialBase.h" />
     <ClInclude Include="RayTracer\Primatives\ObjectPlane.h" />
     <ClInclude Include="RayTracer\GTFM.h" />
@@ -46,6 +48,8 @@
     <ClInclude Include="RayTracer\Materials\SimpleMaterial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RayTracer\Primatives\Cone.cpp" />
+    <ClCompile Include="RayTracer\Primatives\Cylinder.cpp" />
     <ClCompile Include="RayTracer\Materials\MaterialBase.cpp" />
     <ClCompile Include="RayTracer\Primatives\ObjectPlane.cpp" />
     <ClCompile Include="RayTracer\GTFM.cpp" />

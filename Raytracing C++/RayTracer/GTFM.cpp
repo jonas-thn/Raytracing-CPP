@@ -11,6 +11,11 @@ RT::GTFM::~GTFM()
 
 }
 
+RT::GTFM::GTFM(const qbVector<double>& translation, const qbVector<double>& rotation, const qbVector<double>& scale)
+{
+	SetTransform(translation, rotation, scale);
+}
+
 RT::GTFM::GTFM(const qbMatrix2<double>& fwd, const qbMatrix2<double>& bck)
 {
 	if ((fwd.GetNumRows()) != 4 || (fwd.GetNumCols() != 4) || (bck.GetNumRows() != 4) || (bck.GetNumCols() != 4))
@@ -62,7 +67,7 @@ void RT::GTFM::SetTransform(const qbVector<double>& translation, const qbVector<
 	scaleMatrix.SetElement(1, 1, scale.GetElement(1));
 	scaleMatrix.SetElement(2, 2, scale.GetElement(2));
 
-	m_fwdtfm = translationMatrix * scaleMatrix * rotataionMatrixX * rotataionMatrixX * rotataionMatrixZ;
+	m_fwdtfm = translationMatrix * rotataionMatrixX * rotataionMatrixY * rotataionMatrixZ * scaleMatrix;
 
 	m_bcktfm = m_fwdtfm;
 	m_bcktfm.Inverse();

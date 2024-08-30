@@ -13,6 +13,7 @@ RT::PointLight::~PointLight()
 bool RT::PointLight::ComputeIllumination(const qbVector<double>& intPoint, const qbVector<double>& localNormal, const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList, const std::shared_ptr<RT::ObjectBase>& currentObject, qbVector<double>& color, double& intensity)
 {
 	qbVector<double> lightDir = (m_location - intPoint).Normalized();
+	double lightDist = (m_location - intPoint).norm();
 
 	qbVector<double> startPoint = intPoint;
 
@@ -31,6 +32,14 @@ bool RT::PointLight::ComputeIllumination(const qbVector<double>& intPoint, const
 		if (sceneObject != currentObject)
 		{
 			validInt = sceneObject->TestIntersection(lightRay, poi, poiNormal, poiColor);
+			if (validInt)
+			{
+				double dist = (poi - startPoint).norm();
+				if (dist > lightDist)
+				{
+					validInt = false;
+				}
+			}
 		}
 
 		//if intersection, then there is no point checking further

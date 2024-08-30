@@ -8,6 +8,8 @@
 #include "./Primatives/ObjectSphere.h"
 #include "./Lights/PointLight.h"
 #include "./Primatives/ObjectPlane.h"
+#include "./Primatives/Cylinder.h"
+#include "./Primatives/Cone.h"
 
 namespace RT
 {
