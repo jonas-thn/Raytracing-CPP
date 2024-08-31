@@ -16,8 +16,13 @@ RT::Scene::Scene()
 
 	auto yellowDiffuse = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
 	yellowDiffuse->m_baseColor = qbVector<double>{ std::vector<double>{0.8, 0.8, 0.4} };
-	yellowDiffuse->m_reflectivity = 0.4;
+	yellowDiffuse->m_reflectivity = 0.5;
 	yellowDiffuse->m_shininess = 5.0;
+
+	auto redDiffuse = std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
+	redDiffuse->m_baseColor = qbVector<double>{ std::vector<double>{1.0, 0.0, 0.0} };
+	redDiffuse->m_reflectivity = 0.8;
+	redDiffuse->m_shininess = 10.0;
 
 	//create floor
 	auto floor = std::make_shared <RT::ObjectPlane>(RT::ObjectPlane());
@@ -27,16 +32,21 @@ RT::Scene::Scene()
 
 	//create objects
 	auto cylinder1 = std::make_shared<RT::Cylinder>(RT::Cylinder());
-	cylinder1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{-1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 1.0}} });
+	cylinder1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{-1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.25, 0.25, 1.0}} });
 	cylinder1->AssignMaterial(blueDiffuse);
 
 	auto cone1 = std::make_shared<RT::Cone>(RT::Cone());
-	cone1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 1.0}} });
+	cone1->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{1.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.25, 0.25, 1.0}} });
 	cone1->AssignMaterial(yellowDiffuse);
+
+	auto sphere = std::make_shared<RT::ObjectSphere>(RT::ObjectSphere());
+	sphere->SetTransformMatrix(RT::GTFM{ qbVector<double>{std::vector<double>{0.0, 0.0, 0.1}}, qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}}, qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}} });
+	sphere->AssignMaterial(redDiffuse);
 
 	m_objectList.push_back(floor);
 	m_objectList.push_back(cylinder1);
 	m_objectList.push_back(cone1);
+	m_objectList.push_back(sphere);
 
 	//camera
 	m_camera.SetPosition(qbVector<double>(std::vector<double>{0.0, -10.0, -1.0}));
@@ -47,20 +57,22 @@ RT::Scene::Scene()
 	m_camera.UpdateCameraGeometry();
 
 
-	//transform for plane
-
 	//construct a test light
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(0)->m_location = qbVector<double>{ std::vector<double>{5.0, -10.0, -5.0} };
-	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{0.7, 0.7, 1} };
+	m_lightList.at(0)->m_color = qbVector<double>{ std::vector<double>{0.5, 0.3, 0.3} };
 
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(1)->m_location = qbVector<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
-	m_lightList.at(1)->m_color = qbVector<double>{ std::vector<double>{1, 0.3, 0.3} };
+	m_lightList.at(1)->m_color = qbVector<double>{ std::vector<double>{0.3, 0.5, 0.3} };
 
 	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
 	m_lightList.at(2)->m_location = qbVector<double>{ std::vector<double>{0.0, -10.0, -5.0} };
-	m_lightList.at(2)->m_color = qbVector<double>{ std::vector<double>{0.1, 1, 0.1} };
+	m_lightList.at(2)->m_color = qbVector<double>{ std::vector<double>{0.3, 0.3, 0.5} };
+
+	m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
+	m_lightList.at(3)->m_location = qbVector<double>{ std::vector<double>{0.0, -10.0, 0.0} };
+	m_lightList.at(3)->m_color = qbVector<double>{ std::vector<double>{0.8, 0.8, 0.8} };
 }
 
 bool RT::Scene::Render(Image& outputImage)
